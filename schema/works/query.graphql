@@ -1,0 +1,8 @@
+extend type Query {
+  getWorks(id: ID!): Works!
+  getMyWorks(id: ID!): Works!
+  listSearchWorks(search: String!): [Works]!
+  listMyWorks: [Works]!
+  listRankingWorks: [Works]!
+  listSuggestWorks: [Works]!
+}

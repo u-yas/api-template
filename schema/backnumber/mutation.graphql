@@ -1,0 +1,27 @@
+extend type Mutation {
+  createBacknumber(input: CreateBacknumberInput!): Boolean!
+  updateBacknumber(input: UpdateBacknumberInput!): Boolean!
+  deleteBacknumber(input: DeleteBacknumberInput!): Boolean!
+}
+
+input CreateBacknumberInput {
+  worksID: ID!
+  title: String!
+  description: String!
+  thumnail: String!
+  image: String!
+  Tags: [BacknumberTag]!
+}
+
+input UpdateBacknumberInput {
+  id: ID!
+  title: String
+  description: String
+  thumnail: String
+  image: String
+  Tags: [BacknumberTag]
+}
+
+input DeleteBacknumberInput {
+  id: ID!
+}

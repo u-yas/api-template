@@ -1,0 +1,20 @@
+enum BacknumberTag {
+  IMPRESSED
+  SAD
+  CAOTIC
+}
+
+extend type Backnumber {
+  id: ID!
+  uuid: ID!
+  author: PublicUser!
+  Work: Works!
+  title: String!
+  description: String!
+  thumnail: String!
+  url: String!
+  Tag: [BacknumberTag]!
+  createdAt: DATE!
+  updatedAt: DATE!
+
+}
