@@ -8,5 +8,17 @@ services:
     env_file: ./.env.local #Here we are using the already existing .env.local file
     ports:
       - "5432:5432"
+  elastic:
+    networks:
+      - elastic
+    # for x86 architecture remove "-arm64"
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.3-arm64
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
 volumes:
   data:
+networks:
+  elastic:
+    driver: bridge

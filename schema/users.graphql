@@ -1,0 +1,68 @@
+interface BaseUser {
+  id: ID!
+  name: String!
+  works: [Works]!
+  photoUrl: String!
+  favoriteBacknumbers: [Backnumber]!
+  favoriteWorks: [Works]!
+  createdAt: String!
+}
+
+extend type PublicUser implements BaseUser {
+  id: ID!
+  name: String!
+  works: [Works]!
+  photoUrl: String!
+  favoriteBacknumbers: [Backnumber]!
+  favoriteWorks: [Works]!
+  createdAt: String!
+}
+
+extend type PrivateUser implements BaseUser {
+  # baseUser
+  id: ID!
+  name: String!
+  works: [Works]!
+  photoUrl: String!
+  suspended: Boolean!
+  favoriteBacknumbers: [Backnumber]!
+  favoriteWorks: [Works]!
+  createdAt: String!
+  # privateUser
+  suspend: Boolean!
+  email: String!
+  updatedAt: String!
+}
+
+extend enum Provider {
+  TWITTER
+  GITHUB
+  GOOGLE
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): PrivateUser!
+  updateUser(input: UpdateUserInput!): PrivateUser!
+  deleteMe: Boolean!
+}
+
+input CreateUserInput {
+  email: String!
+  token: String!
+  Provider: Provider!
+  cledential: String!
+}
+
+input UpdateUserInput {
+  id: ID!
+  token: String!
+  name: String
+  email: String
+}
+
+extend type Query {
+  listFavoriteUser: [PublicUser]!
+  listSearchUser(name: String!): [PublicUser]!
+  getSpecificUser(id: ID!): PublicUser!
+  getMe: PrivateUser!
+}

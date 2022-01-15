@@ -1,0 +1,27 @@
+enum WorksCategory {
+  ACADEMY
+  LOVECOMEDY
+  MYSTERY
+  FANTASY
+}
+
+extend type Category {
+  id: ID!
+  name: WorksCategory!
+  createdAt: String!
+  updatedAt: String!
+}
+
+extend type Mutation {
+  createCategory(name: String): Category!
+  updateCategory(id: ID!, name: String): Category!
+  deleteCategory(id: ID!): Category!
+  addBacknumberCategory(backnumberId: ID!, categoryId: ID!): Backnumber!
+  removeBacknumberCategory(backnumberId: ID!, categoryId: ID!): Backnumber!
+}
+
+extend type Query {
+  getCategories: [Category]!
+  getCategory(id: ID!): Category!
+  listBacknumberByCategory(tagId: ID!): [Works]!
+}

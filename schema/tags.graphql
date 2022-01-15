@@ -1,0 +1,12 @@
+enum BacknumberTag {
+  IMPRESSED
+  SAD
+  CAOTIC
+}
+
+type Tags {
+  id: ID!
+  name: BacknumberTag!
+  createdAt: String!
+  updatedAt: String!
+}

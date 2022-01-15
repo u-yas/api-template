@@ -1,0 +1,52 @@
+extend type Backnumber {
+  id: ID!
+  uuid: ID!
+  author: PublicUser!
+  Work: Works!
+  title: String!
+  description: String!
+  thumbnail: String!
+  url: String!
+  Tag: [BacknumberTag]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+extend type Mutation {
+  createBacknumber(input: CreateBacknumberInput!): Backnumber!
+  updateBacknumber(input: UpdateBacknumberInput!): Backnumber!
+  deleteBacknumber(input: DeleteBacknumberInput!): Boolean!
+}
+
+input CreateBacknumberInput {
+  worksID: ID!
+  title: String!
+  description: String!
+  thumnail: String!
+  image: String!
+  Tags: [BacknumberTag]!
+}
+
+input UpdateBacknumberInput {
+  id: ID!
+  title: String
+  description: String
+  thumnail: String
+  image: String
+  Tags: [BacknumberTag]
+}
+
+input DeleteBacknumberInput {
+  id: ID!
+}
+
+extend type Query {
+  listTopPageBacknumbers: [Backnumber]!
+  listMyAllBacknumbers: [Backnumber]!
+  listSuggestBacknumbers: [Backnumber]!
+  listBacknumbersFromWorksId(worksId: ID!): [Backnumber]!
+  listFilterTagsBacknumbers(tag: String!): [Backnumber]!
+  listSearchBacknumbers(title: String!): [Backnumber]!
+  getMySpecificBacknumbers(backnumberId: ID!): Backnumber!
+  getPublicSpecificBacknumber(backnumberId: ID!): Backnumber!
+}

@@ -3,7 +3,7 @@ output   = "src/db"
 wipe     = true
 no-tests = true
 [psql]
-  dbname = "pesumi_db"
+  dbname = "sample_db"
   host   = "localhost"
   port   = 5432
   user   = "user"

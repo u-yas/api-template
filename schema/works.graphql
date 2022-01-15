@@ -1,0 +1,46 @@
+extend type Works {
+  id: ID!
+  author: PublicUser!
+  title: String!
+  description: String!
+  image: String!
+  url: String!
+  backnumbers: [Backnumber]!
+  category: [WorksCategory]!
+  thumbnail: String!
+  private: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}
+
+extend type Mutation {
+  createWorks(works: CreateWorksInput): Works!
+  updateWorks(works: updateWorksInput): Works!
+  deleteWorks(id: ID!): Boolean!
+}
+
+input CreateWorksInput {
+  title: String!
+  description: String!
+  image: String!
+  thumbnail: String!
+  tags: [String]!
+}
+
+input updateWorksInput {
+  id: ID!
+  title: String
+  description: String
+  image: String
+  thumbnail: String
+  tags: [String]
+}
+
+extend type Query {
+  getWorks(id: ID!): Works!
+  getMyWorks(id: ID!): Works!
+  listSearchWorks(search: String!): [Works]!
+  listMyWorks: [Works]!
+  listRankingWorks: [Works]!
+  listSuggestWorks: [Works]!
+}

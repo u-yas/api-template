@@ -1,6 +1,0 @@
-extend type Query {
-  listFavoriteUser: [PublicUser]!
-  listSearchUser(name: String!): [PublicUser]!
-  getSpecificUser(id: ID!): PublicUser!
-  getMe: PrivateUser!
-}
