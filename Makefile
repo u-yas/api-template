@@ -5,7 +5,7 @@ build:
 	go build ./src/main.go
 
 compose:
-	docker compose up
+	docker compose up -d
 
 generate-init:
 	go run github.com/99designs/gqlgen init
@@ -23,7 +23,7 @@ migrate-down:
 sqlboiler-prd:
 	sqlboiler psql -c ./sqlboiler-prd.toml
 
-tup-env:
+settup-env:
 	cp .env.local.sample .env.local
 	export POSTGRESQL_URL=postgres://user:password@localhost:5432/sample_db?sslmode=disable
 	export GOOSE_DRIVER=postgres
