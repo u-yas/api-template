@@ -4,10 +4,10 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"api-template/src/graphql/generated"
-	"api-template/src/graphql/model"
 	"context"
 	"fmt"
+	"go-api-sample/src/graphql/generated"
+	"go-api-sample/src/graphql/model"
 )
 
 func (r *mutationResolver) CreateBacknumber(ctx context.Context, input model.CreateBacknumberInput) (*model.Backnumber, error) {

@@ -1,4 +1,4 @@
-module api-template
+module go-api-sample
 
 go 1.17
 

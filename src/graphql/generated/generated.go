@@ -3,7 +3,7 @@
 package generated
 
 import (
-	"api-template/src/graphql/model"
+	"go-api-sample/src/graphql/model"
 	"bytes"
 	"context"
 	"errors"

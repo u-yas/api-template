@@ -4,11 +4,11 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"api-template/src/db"
-	"api-template/src/graphql/model"
 	"context"
 	"encoding/json"
 	"fmt"
+	"go-api-sample/src/db"
+	"go-api-sample/src/graphql/model"
 	"log"
 	"strconv"
 	"strings"

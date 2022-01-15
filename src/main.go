@@ -1,8 +1,8 @@
 package main
 
 import (
-	"api-template/src/graphql/resolver"
-	"api-template/src/settings"
+	"go-api-sample/src/graphql/resolver"
+	"go-api-sample/src/settings"
 	"sync"
 )
 

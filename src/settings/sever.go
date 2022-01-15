@@ -1,8 +1,8 @@
 package settings
 
 import (
-	"api-template/src/graphql/generated"
-	"api-template/src/graphql/resolver"
+	"go-api-sample/src/graphql/generated"
+	"go-api-sample/src/graphql/resolver"
 	"log"
 	"os"
 

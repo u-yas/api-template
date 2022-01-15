@@ -4,9 +4,9 @@ package resolver
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
-	"api-template/src/graphql/model"
 	"context"
 	"fmt"
+	"go-api-sample/src/graphql/model"
 )
 
 func (r *mutationResolver) CreateWorks(ctx context.Context, works *model.CreateWorksInput) (*model.Works, error) {
