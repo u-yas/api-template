@@ -6,4 +6,4 @@ SCRIPT_DIR=$(
 )
 
 cd "$SCRIPT_DIR/.."
-docker compose -f ./build/docker-compose.yml up
+docker compose -f ./build/docker-compose.yml up $1

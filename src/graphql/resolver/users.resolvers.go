@@ -49,7 +49,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUse
 
 	// recieve chan value from db and es
 
-	err := <-dbC && <-esC
+	err := <-dbC || <-esC
 	if err {
 		return nil, fmt.Errorf("failed to create user")
 	}
