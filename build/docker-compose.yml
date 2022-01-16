@@ -6,7 +6,7 @@ services:
     image: postgres:latest
     volumes:
       - data:/var/lib/postgresql/data
-    env_file: .env.local #Here we are using the already existing .env.local file
+    env_file: ../.env.local #Here we are using the already existing .env.local file
     expose:
       - "5432"
     ports:
@@ -37,8 +37,8 @@ services:
   api-server:
     container_name: api-server
     build:
-      context: ./
-      dockerfile: dockerfile
+      context: ../
+      dockerfile: ./build/server/dockerfile
     ports:
       - "8080:8080"
     networks:
