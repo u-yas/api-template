@@ -5,16 +5,12 @@ package resolver
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"go-api-sample/src/db"
 	"go-api-sample/src/graphql/model"
-	"log"
-	"strconv"
 	"strings"
 	"time"
 
-	"github.com/elastic/go-elasticsearch/esapi"
 	"github.com/google/uuid"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )
@@ -22,59 +18,42 @@ import (
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUserInput) (*model.PrivateUser, error) {
 	now := time.Now() // ①
 	uid := uuid.NewString()
-	user := db.User{
-		UUID:    uid,
-		Email:   input.Email,
-		Name:    input.Email,
-		Suspend: false,
+
+	dbC := make(chan bool)
+	esC := make(chan bool)
+
+	dbInput := func() {
+		user := db.User{
+			UUID:    uid,
+			Email:   input.Email,
+			Name:    input.Email,
+			Suspend: false,
+		}
+		err := user.Insert(ctx, r.DbCon, boil.Infer())
+		if err != nil {
+			fmt.Println(err)
+			dbC <- true
+		}
+		dbC <- false
 	}
-	err := user.Insert(ctx, r.DbCon, boil.Infer())
-	if err != nil {
-		return nil, err
+	go dbInput()
+	esInput := func() {
+		_, er := r.Es.Index("user", strings.NewReader(`{"email":"`+input.Email+`"}`), r.Es.Index.WithDocumentID(uid))
+		if er != nil {
+			fmt.Println(er)
+			esC <- true
+		}
+		esC <- false
+	}
+	go esInput()
+
+	// recieve chan value from db and es
+
+	err := <-dbC && <-esC
+	if err {
+		return nil, fmt.Errorf("failed to create user")
 	}
 
-	for i, title := range []string{"Test One", "Test Two"} {
-		r.Wg.Add(1)
-
-		go func(i int, title string) {
-			defer r.Wg.Done()
-
-			// Build the request body.
-			var b strings.Builder
-			b.WriteString(`{"title" : "`)
-			b.WriteString(title)
-			b.WriteString(`"}`)
-
-			// Set up the request object.
-			req := esapi.IndexRequest{
-				Index:      "test",
-				DocumentID: strconv.Itoa(i + 1),
-				Body:       strings.NewReader(b.String()),
-				Refresh:    "true",
-			}
-
-			// Perform the request with the client.
-			res, err := req.Do(context.Background(), r.Es)
-			if err != nil {
-				log.Fatalf("Error getting response: %s", err)
-			}
-			defer res.Body.Close()
-
-			if res.IsError() {
-				log.Printf("[%s] Error indexing document ID=%d", res.Status(), i+1)
-			} else {
-				// Deserialize the response into a map.
-				var r map[string]interface{}
-				if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-					log.Printf("Error parsing the response body: %s", err)
-				} else {
-					// Print the response status and indexed document version.
-					log.Printf("[%s] %s; version=%d", res.Status(), r["result"], int(r["_version"].(float64)))
-				}
-			}
-		}(i, title)
-	}
-	r.Wg.Wait()
 	result := &model.PrivateUser{
 		ID:    uid,
 		Name:  input.Email,

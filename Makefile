@@ -5,7 +5,8 @@ build:
 	go build ./src/main.go
 
 compose:
-	docker compose up -d
+	cd build
+	docker compose up
 
 generate-init:
 	go run github.com/99designs/gqlgen init
