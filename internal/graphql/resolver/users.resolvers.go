@@ -6,8 +6,8 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"go-api-sample/src/db"
-	"go-api-sample/src/graphql/model"
+	"go-api-sample/internal/db"
+	"go-api-sample/internal/graphql/model"
 	"strings"
 	"time"
 

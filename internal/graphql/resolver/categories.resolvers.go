@@ -6,7 +6,7 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"go-api-sample/src/graphql/model"
+	"go-api-sample/internal/graphql/model"
 )
 
 func (r *mutationResolver) CreateCategory(ctx context.Context, name *string) (*model.Category, error) {

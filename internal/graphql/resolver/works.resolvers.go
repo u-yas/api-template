@@ -6,7 +6,7 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"go-api-sample/src/graphql/model"
+	"go-api-sample/internal/graphql/model"
 )
 
 func (r *mutationResolver) CreateWorks(ctx context.Context, works *model.CreateWorksInput) (*model.Works, error) {

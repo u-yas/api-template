@@ -6,8 +6,8 @@ package resolver
 import (
 	"context"
 	"fmt"
-	"go-api-sample/src/graphql/generated"
-	"go-api-sample/src/graphql/model"
+	"go-api-sample/internal/graphql/generated"
+	"go-api-sample/internal/graphql/model"
 )
 
 func (r *mutationResolver) CreateBacknumber(ctx context.Context, input model.CreateBacknumberInput) (*model.Backnumber, error) {
